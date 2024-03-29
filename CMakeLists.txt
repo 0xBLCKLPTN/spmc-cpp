@@ -16,7 +16,8 @@ add_executable(spmcgame
   SourceFiles/Core/ButtonsCallback.hpp
   SourceFiles/Core/stb_image.hpp
   SourceFiles/Core/PngLoader.hpp
-  SourceFiles/Core/common/ShaderLoader.cpp
+  SourceFiles/Core/common/ShaderLoader.hpp
+  SourceFiles/Components/Triangle.hpp
 )
 
 add_subdirectory(./Includes/glfw3)
