@@ -12,14 +12,15 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_executable(spmcgame
-  SourceFiles/Core/Window.cpp
+  SourceFiles/Core/Test.cpp
   SourceFiles/Core/ButtonsCallback.hpp
   SourceFiles/Core/stb_image.hpp
   SourceFiles/Core/PngLoader.hpp
+  SourceFiles/Core/common/ShaderLoader.cpp
 )
 
-#add_subdirectory(./Includes/glfw)
-find_package(glfw3 REQUIRED)
+add_subdirectory(./Includes/glfw3)
+#find_package(glfw3 REQUIRED)
 target_link_libraries(spmcgame glfw)
 
 find_package(GLEW REQUIRED)
@@ -28,9 +29,6 @@ target_link_libraries(spmcgame GLEW::GLEW)
 find_package(OpenGL REQUIRED)
 target_link_libraries(spmcgame OpenGL::GL)
 
-
-find_package(SDL2 REQUIRED)
-target_link_libraries(spmcgame SDL2)
 
 file(MAKE_DIRECTORY build/data)
 file(COPY Assets DESTINATION data)
