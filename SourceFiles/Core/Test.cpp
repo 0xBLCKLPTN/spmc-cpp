@@ -21,8 +21,8 @@ using namespace glm;
 #include <sstream>
 #include <stdlib.h>
 #include <string.h>
-#include "./common/ShaderLoader.hpp"
-#include "./PngLoader.hpp"
+#include "./Common/ShaderLoader.hpp"
+#include "./Common/PngLoader.hpp"
 
 class Window {
 	GLFWimage cursor_image;

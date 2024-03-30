@@ -14,9 +14,9 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_executable(spmcgame
   SourceFiles/Core/Test.cpp
   SourceFiles/Core/ButtonsCallback.hpp
-  SourceFiles/Core/stb_image.hpp
-  SourceFiles/Core/PngLoader.hpp
-  SourceFiles/Core/common/ShaderLoader.hpp
+  SourceFiles/Core/Common/stb_image.hpp
+  SourceFiles/Core/Common/PngLoader.hpp
+  SourceFiles/Core/Common/ShaderLoader.hpp
   SourceFiles/Components/Triangle.hpp
 )
 
