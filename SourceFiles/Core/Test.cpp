@@ -22,29 +22,22 @@ using namespace glm;
 #include <stdlib.h>
 #include <string.h>
 #include "./common/ShaderLoader.hpp"
-
+#include "./PngLoader.hpp"
 
 class Window {
-	public:
-		Window()
-		{
-			if ( !glfwInit() )
-			{
-				fprintf(stderr, "Failed to initialize GLFW\n");
-				getchar();
-				return;
-			}
+	GLFWimage cursor_image;
 
-		}
-		int run()
+	private:
+		void initWindowHints()
 		{
-
 			glfwWindowHint(GLFW_SAMPLES, 4);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make macOS happy; should not be needed
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+		}
+		int createWindow()
+		{
 			// Open a window and create its OpenGL context
 			window = glfwCreateWindow( 1024, 768, "Tutorial 02 - Red triangle", NULL, NULL);
 			if( window == NULL ){
@@ -54,7 +47,9 @@ class Window {
 				return -1;
 			}
 			glfwMakeContextCurrent(window);
-
+		}
+		int initGlew()
+		{
 			// Initialize GLEW
 			glewExperimental = true; // Needed for core profile
 			if (glewInit() != GLEW_OK) {
@@ -63,14 +58,32 @@ class Window {
 				glfwTerminate();
 				return -1;
 			}
+		}
 
+		void initCursor()
+        {
+            cursor_image = load_png("./data/Assets/UI/cursor.png");
+            GLFWcursor* cursor = glfwCreateCursor(&cursor_image, 0, 0);
+            glfwSetCursor(window, cursor);
+        }
+	public:
+		Window()
+		{
+			if ( !glfwInit() )
+			{
+				fprintf(stderr, "Failed to initialize GLFW\n");
+				getchar();
+				return;
+			}
+			initWindowHints();
+			createWindow();
+			initGlew();
+			initCursor();
 			// Ensure we can capture the escape key being pressed below
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
 			// Dark blue background
 			glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-
-			GLuint VertexArrayID;
+						GLuint VertexArrayID;
 			glGenVertexArrays(1, &VertexArrayID);
 			glBindVertexArray(VertexArrayID);
 
@@ -126,7 +139,7 @@ class Window {
 			glDeleteBuffers(1, &vertexbuffer);
 			glDeleteVertexArrays(1, &VertexArrayID);
 			glDeleteProgram(programID);
-
+			deallocate_pixels(cursor_image.pixels);
 			// Close OpenGL window and terminate GLFW
 			glfwTerminate();
 		}
@@ -134,6 +147,5 @@ class Window {
 
 int main( void )
 {
-	Window w;
-	w.run();	
+	Window w;	
 }
