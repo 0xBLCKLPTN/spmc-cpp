@@ -32,3 +32,8 @@
 *.app
 
 build
+
+
+# Added by cargo
+
+/target
